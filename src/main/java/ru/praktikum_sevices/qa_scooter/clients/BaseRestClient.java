@@ -10,6 +10,8 @@ import org.apache.http.client.config.RequestConfig;
 import static io.restassured.http.ContentType.ANY;
 import static io.restassured.http.ContentType.JSON;
 
+
+
 public class BaseRestClient {
 
     public static final String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
