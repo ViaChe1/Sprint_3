@@ -1,6 +1,6 @@
 package ru.praktikum_sevices.qa_scooter.orders;
-
 import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.After;
@@ -28,14 +28,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertTrue;
-
 @RunWith(Parameterized.class)
 public class CreateOrderParametrizedTest {
-
     OrdersClient ordersClient;
     Order order = new Order();
     private final List<String> listColors;
-
     public CreateOrderParametrizedTest(List<String> listColors) {
         this.listColors = listColors;
     }
@@ -48,21 +45,18 @@ public class CreateOrderParametrizedTest {
                 {List.of("BLACK", "GRAY")}
         };
     }
-
     @Before
     public void setUp() {
         ordersClient = new OrdersClient();
         // получаем дефолтный набор полей для создания заказа
         order = order.getCreateOrderDefault();
     }
-
     @Test
-    @Description("После успешного создания заказа тело ответа содержит 'track' не зависимо от выбранного цвета")
+    @DisplayName("После успешного создания заказа тело ответа содержит 'track' не зависимо от выбранного цвета")
     public void shouldBeTrackInResponseBody() {
         order.setColor(listColors);
         ValidatableResponse orderCreateResponse = ordersClient.createOrder(order);
         CreateOrderResponse createOrderResponse = orderCreateResponse.extract().as(CreateOrderResponse.class);
-
         assertThat("Статус код не 201", orderCreateResponse.extract().statusCode(), equalTo(SC_CREATED));
         assertThat("Тело ответа не содержит валидный 'track'", createOrderResponse.getTrack(), is(not(0)));
     }

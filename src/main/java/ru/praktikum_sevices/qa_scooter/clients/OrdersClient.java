@@ -1,19 +1,13 @@
 package ru.praktikum_sevices.qa_scooter.clients;
-
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import ru.praktikum_sevices.qa_scooter.model.courier.Courier;
 import ru.praktikum_sevices.qa_scooter.model.courier.CourierCredentials;
 import ru.praktikum_sevices.qa_scooter.model.orders.CreateOrderResponse;
 import ru.praktikum_sevices.qa_scooter.model.orders.Order;
-
 import static io.restassured.RestAssured.given;
-
 public class OrdersClient extends BaseRestClient{
-
       private static final String ORDERS_PATH = "/api/v1/orders/";
-
-
     @Step("Создание заказа с параметрами {order}")
     public ValidatableResponse createOrder(Order order) {
         return given()
@@ -25,7 +19,6 @@ public class OrdersClient extends BaseRestClient{
                 .then()
                 .log().all();
     }
-
     @Step("Получение списка заказов")
     public ValidatableResponse getOrdersList() {
         return given()
@@ -36,5 +29,4 @@ public class OrdersClient extends BaseRestClient{
                 .then()
                 .log().all();
     }
-
 }
