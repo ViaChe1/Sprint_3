@@ -1,6 +1,6 @@
 package ru.praktikum_sevices.qa_scooter.orders;
-
 import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -22,21 +22,17 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
-
 public class GetOrdersListTest {
     OrdersClient ordersClient;
-
     @Before
     public void setUp() {
         ordersClient = new OrdersClient();
     }
-
     @Test
-    @Description("В ответе есть список заказов")
+    @DisplayName("В ответе есть список заказов")
     public void shouldBeReturnOrdersListInResponseBody() {
         ValidatableResponse getOrdersListResponse = ordersClient.getOrdersList();
         Orders orders = getOrdersListResponse.extract().as(Orders.class);
-
         assertThat("Статус код не 200", getOrdersListResponse.extract().statusCode(), equalTo(SC_OK));
         assertThat("В ответе нет списка заказов", orders.getOrders(), is(notNullValue()));
     }

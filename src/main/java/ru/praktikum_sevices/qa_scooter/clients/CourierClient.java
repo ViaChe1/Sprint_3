@@ -1,17 +1,11 @@
 package ru.praktikum_sevices.qa_scooter.clients;
-
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import ru.praktikum_sevices.qa_scooter.model.courier.Courier;
 import ru.praktikum_sevices.qa_scooter.model.courier.CourierCredentials;
-
 import static io.restassured.RestAssured.given;
-
 public class CourierClient extends BaseRestClient{
-
      private static final String COURIER_PATH = "api/v1/courier/";
-
-
     @Step("Авторизация курьера в системе {credentials}")
     public ValidatableResponse login(CourierCredentials credentials) {
         return given()
@@ -23,7 +17,6 @@ public class CourierClient extends BaseRestClient{
                 .then()
                 .log().all();
     }
-
     @Step("Создание курьера с параметрами {courier}")
     public ValidatableResponse create(Courier courier) {
         return given()
@@ -35,7 +28,6 @@ public class CourierClient extends BaseRestClient{
                 .then()
                 .log().all();
     }
-
     @Step("Удаление курьера с id {courierId}")
     public ValidatableResponse delete(int courierId) {
         return given()
@@ -46,5 +38,4 @@ public class CourierClient extends BaseRestClient{
                 .then()
                 .log().all();
     }
-
 }
